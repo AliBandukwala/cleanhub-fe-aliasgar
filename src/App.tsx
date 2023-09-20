@@ -1,5 +1,5 @@
 import './App.css'
-import HubsList from './fetaures/hubs-list/views/hubs-list'
+import HubsList from './fetaures/hubs-list/views'
 
 function App() {
 
