@@ -12,6 +12,7 @@ const HubsListFilters: React.FC = () => {
           <input
             type="radio"
             checked={filters.onlyActive}
+            readOnly
             onClick={() => { setFilters('onlyActive', !filters.onlyActive); }}
           />
           <span>Only Active</span>
