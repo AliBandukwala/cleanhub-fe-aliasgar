@@ -21,6 +21,7 @@ const useHubsListStore = create<IHubsListStore>((set) => ({
         try{
             const hubsList: Hub[] = await HubsListApi.fetchHubsList()
             set({list: hubsList})
+            console.log(hubsList)
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         catch(e: any){

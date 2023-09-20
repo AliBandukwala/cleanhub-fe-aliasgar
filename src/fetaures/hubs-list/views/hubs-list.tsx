@@ -4,7 +4,7 @@ import { Hub } from "../models/hub.model"
 import HubsListItem from "./hubs-list-item"
 
 const HubsList: React.FC = () => {
-    
+
     const {loading, error, list, fetchList} = useHubsListStore()
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const HubsList: React.FC = () => {
         <div>
         {
             list.map((hub: Hub) => {
-                return <HubsListItem hub={hub} />
+                return <HubsListItem key={hub.uuid} hub={hub} />
             })
         }
         </div>

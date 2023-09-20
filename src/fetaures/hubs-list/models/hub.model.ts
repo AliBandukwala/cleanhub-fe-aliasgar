@@ -8,14 +8,8 @@ interface CardImage {
     uuid: string;
   }
 
-  interface Logo {
-    directLink: string;
-    fileName: string;
-    processedDirectLink: null;
-    processedThumbnailDirectLink: null;
-    size: number;
-    thumbnailDirectLink: string;
-    uuid: string;
+  interface Logo extends CardImage {
+    
   }
 
   interface HubUnassignedRecovery {
@@ -40,11 +34,11 @@ interface CardImage {
     hubUnassignedRecoveryList: HubUnassignedRecovery[];
     length: number;
     location: string;
-    logo: Logo,
+    logo: Logo | null,
     name: string;
     pageMode: string;
-    parentHubName: string;
-    portfolioAssignedQuantityPercentage: null;
+    parentHubName: string | null;
+    portfolioAssignedQuantityPercentage: number | null;
     recoveredQuantity: number;
     recoveredQuantityUnit: string;
     referenceQuantityUnit: string;
