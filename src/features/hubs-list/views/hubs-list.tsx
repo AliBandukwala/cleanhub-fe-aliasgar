@@ -16,9 +16,9 @@ const HubsListView: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    if(loading) return <div>Loading...</div>
+    if(loading) return <div className="ml-4">Loading...</div>
 
-    else if(error) return <div>{error}</div>
+    else if(error) return <div className="ml-4">{error}</div>
 
     return (
         <div className=" flex flex-col items-center">

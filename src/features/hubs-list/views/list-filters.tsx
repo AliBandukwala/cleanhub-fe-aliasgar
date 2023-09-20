@@ -33,7 +33,7 @@ const HubsListFilters: React.FC = () => {
         type="text"
         value={filters.displayName}
         onChange={(e) => setFilters('displayName', e.target.value)}
-        placeholder="Filter by DisplayName"
+        placeholder="Filter by name"
         className="border border-gray-300 p-2 rounded"
       />
     </div>
