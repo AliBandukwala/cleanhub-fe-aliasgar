@@ -2,21 +2,20 @@ import { create } from "zustand";
 import HubsListApi from "../api/hubs-list.api";
 import { Hub } from "../models/hub.model";
 
-interface IHubFilters {
-  type: string | null;
-  assigned: boolean;
-  displayName: string;
-  setType: (type: string | null) => void;
-  setAssigned: (assigned: boolean) => void;
-  setDisplayName: (displayName: string) => void;
-  resetFilters: () => void;
+interface IHubsListFilters {
+    type: string;
+    onlyActive: boolean;
+    displayName: string;
 }
 
-interface IHubsListStore extends IHubFilters {
+interface IHubsListStore {
     loading: boolean,
     error: string | null,
     list: Hub[],
     filteredList: Hub[], 
+    filters: IHubsListFilters,
+    setFilter: (filterKey: keyof IHubsListFilters, value: string | boolean) => void;
+    resetFilters: () => void,
     fetchList: () => Promise<void>,
 }
 
@@ -26,47 +25,37 @@ const useHubsListStore = create<IHubsListStore>((set, get) => ({
     list: [],
     filteredList: [],
 
-    type: null,
-    assigned: false,
-    displayName: '',
+    filters: {
+        type: '',
+        onlyActive: false,
+        displayName: '',
+    },
 
-    setType: (type) => {
-        set({ type })
+    setFilter(filterKey, value){
+        set((state) => ({
+          filters: {
+            ...state.filters,
+            [filterKey]: value,
+          },
+        }));
 
-        if(type){
-            set({
-                filteredList: get().list.filter(e => e.type.toLowerCase().includes(type.toLowerCase()))
-            })
-        }
-        else if(type === null && get().assigned === false && get().displayName.length === 0){
+        const filters: IHubsListFilters = get().filters
+
+        if(filters.type === '' && !filters.onlyActive && filters.displayName.length === 0){
             get().resetFilters()
         }
-    },
-    setAssigned: (assigned) => {
-        if(assigned){
-            set({ 
-                assigned,
-                filteredList: get().list.filter(e => e.assignable === assigned)
-            })
-        }
-        else if(get().type === null && !assigned && get().displayName.length === 0){
-            get().resetFilters()
-        }
-    },
-    setDisplayName: (displayName) => {
-        set({ displayName })
+        else{
+            const filteredList = get().list
+            .filter((hub) => hub.type?.toLowerCase().includes(get().filters.type.toLowerCase()))
+            .filter((hub) => hub.state === 'ACTIVE')
+            .filter((hub) => hub.displayName.toLowerCase().includes(get().filters.displayName.toLowerCase()));
 
-        if(displayName.length !== 0){
-            set({
-                filteredList: get().list.filter(e => e.displayName.toLowerCase().includes(displayName.toLowerCase()))
-            })
-        }
-        else if(get().type === null && !get().assigned && displayName.length === 0){
-            get().resetFilters()
+            set({ filteredList })
         }
     },
+
     resetFilters: () => {
-        set({ type: null, assigned: false, displayName: '', filteredList: [] })
+        set({ filters: { type: '', onlyActive: false, displayName: ''}, filteredList: [] })
     },
 
     async fetchList() {
