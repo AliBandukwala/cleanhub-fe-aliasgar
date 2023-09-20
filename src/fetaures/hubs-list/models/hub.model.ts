@@ -47,7 +47,7 @@ interface CardImage {
     state: string;
     thankYouNote: string;
     totalRecoveredQuantity: number;
-    type: string;
+    type: string | null;
     unassignedQuantityPercentage: number;
     unassignedQuantityTotal: number;
     uuid: string;
