@@ -6,7 +6,7 @@ const HubsListFilters: React.FC = () => {
   const setFilters = useHubsListStore((state) => state.setFilter);
 
   return (
-    <div className="flex items-center justify-end m-4 space-x-4">
+    <div className="flex items-center md:justify-end m-4 space-x-2 md:space-x-4">
       <div className='bg-white p-2 rounded' >
         <label className="flex items-center space-x-2">
           <input
@@ -33,7 +33,7 @@ const HubsListFilters: React.FC = () => {
         type="text"
         value={filters.displayName}
         onChange={(e) => setFilters('displayName', e.target.value)}
-        placeholder="Filter by DisplayName"
+        placeholder="Filter by name"
         className="border border-gray-300 p-2 rounded"
       />
     </div>
