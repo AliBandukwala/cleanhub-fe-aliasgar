@@ -39,16 +39,14 @@ const useHubsListStore = create<IHubsListStore>((set, get) => ({
           },
         }));
 
-        const filters: IHubsListFilters = get().filters
-
-        if(filters.type === '' && !filters.onlyActive && filters.displayName.length === 0){
+        if(get().filters.type === '' && !get().filters.onlyActive && get().filters.displayName === ''){
             get().resetFilters()
         }
         else{
             const filteredList = get().list
-            .filter((hub) => hub.type?.toLowerCase().includes(get().filters.type.toLowerCase()))
-            .filter((hub) => hub.state === 'ACTIVE')
-            .filter((hub) => hub.displayName.toLowerCase().includes(get().filters.displayName.toLowerCase()));
+            .filter((hub) => get().filters.type === '' ? true : hub.type?.toLowerCase().includes(get().filters.type.toLowerCase()))
+            .filter((hub) => get().filters.onlyActive ? hub.state === 'ACTIVE' : true)
+            .filter((hub) => get().filters.displayName === '' ? true : hub.displayName.toLowerCase().includes(get().filters.displayName.toLowerCase()));
 
             set({ filteredList })
         }

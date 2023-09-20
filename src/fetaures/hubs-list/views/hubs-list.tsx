@@ -21,10 +21,10 @@ const HubsListView: React.FC = () => {
     else if(error) return <div>{error}</div>
 
     return (
-        <div>
+        <div className=" flex flex-col items-center">
         {
             (filteredList.length > 0 ? filteredList : list).map((hub: Hub) => {
-                return <HubsListItem key={hub.uuid} hub={hub} />
+                return <div className="w-3/4" key={hub.uuid}><HubsListItem hub={hub} /></div>
             })
         }
         </div>
