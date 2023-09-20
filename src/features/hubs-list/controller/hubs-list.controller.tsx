@@ -2,6 +2,7 @@ import { create } from "zustand";
 import HubsListApi from "../api/hubs-list.api";
 import { Hub } from "../models/hub.model";
 
+// properties used for filters:
 interface IHubsListFilters {
     type: string;
     onlyActive: boolean;
@@ -19,6 +20,7 @@ interface IHubsListStore {
     fetchList: () => Promise<void>,
 }
 
+// Main store hook used for HubsList view components:
 const useHubsListStore = create<IHubsListStore>((set, get) => ({
     loading: false,
     error: null,
@@ -31,6 +33,7 @@ const useHubsListStore = create<IHubsListStore>((set, get) => ({
         displayName: '',
     },
 
+    // method to set filters and update the filtered list:
     setFilter(filterKey, value){
         set((state) => ({
           filters: {
@@ -40,9 +43,10 @@ const useHubsListStore = create<IHubsListStore>((set, get) => ({
         }));
 
         if(get().filters.type === '' && !get().filters.onlyActive && get().filters.displayName === ''){
-            get().resetFilters()
+            set({filteredList: []})
         }
         else{
+            // filtering based on properties defined in filter property object:
             const filteredList = get().list
             .filter((hub) => get().filters.type === '' ? true : hub.type?.toLowerCase().includes(get().filters.type.toLowerCase()))
             .filter((hub) => get().filters.onlyActive ? hub.state === 'ACTIVE' : true)
@@ -56,6 +60,7 @@ const useHubsListStore = create<IHubsListStore>((set, get) => ({
         set({ filters: { type: '', onlyActive: false, displayName: ''}, filteredList: [] })
     },
 
+    // async method to fetch all hubs list:
     async fetchList() {
         set({loading: true})
         try{

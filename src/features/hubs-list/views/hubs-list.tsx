@@ -16,15 +16,20 @@ const HubsListView: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    // when list is being fetched:
     if(loading) return <div className="ml-4">Loading...</div>
 
+    // when fetch gave error:
     else if(error) return <div className="ml-4">{error}</div>
 
+    // Hubs-Items-List view:
     return (
         <div className=" flex flex-col items-center">
         {
             (filteredList.length > 0 ? filteredList : list).map((hub: Hub) => {
-                return <div className=" md:w-3/4" key={hub.uuid}><HubsListItem hub={hub} /></div>
+                return <div className=" md:w-3/4" key={hub.uuid}>
+                    <HubsListItem hub={hub} />
+                </div>
             })
         }
         </div>
