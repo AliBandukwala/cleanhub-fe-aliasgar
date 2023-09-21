@@ -4,7 +4,7 @@ interface IAppbarProps {
 }
 const Appbar: React.FC<IAppbarProps> = ({title, logoSrc}) => {
     return (
-        <header className="flex bg-white p-3 items-center">
+        <header className="flex bg-white p-3 items-center shadow-md">
             {
                 logoSrc && 
                 <img src={logoSrc} width={40} height={40} alt='' className="rounded-full mr-4" />

@@ -2,6 +2,7 @@ import React from 'react';
 import useHubsListStore from '../controller/hubs-list.controller';
 
 const HubsListFilters: React.FC = () => {
+  
   const filters = useHubsListStore((state) => state.filters);
   const setFilters = useHubsListStore((state) => state.setFilter);
 

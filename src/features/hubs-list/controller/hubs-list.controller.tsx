@@ -2,6 +2,8 @@ import { create } from "zustand";
 import HubsListApi from "../api/hubs-list.api";
 import { Hub } from "../models/hub.model";
 
+/* controller to handle the business logic of this feature separately */
+
 // properties used for filters:
 interface IHubsListFilters {
     type: string;

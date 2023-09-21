@@ -7,15 +7,17 @@ const HubsListItem: React.FC<{hub: Hub}> = ({ hub }) => {
     return (
         <Card onClick={() => window.location.href = `https://test.cleanhub.com/hub/${hub.slug}`}>
             <div className="flex flex-col justify-start md:flex-row md:items-start">
+                {/* Hub Logo */}
                 { 
                     hub.logo &&
                     <img
                         src={hub.logo?.thumbnailDirectLink}
-                        alt="Image"
+                        alt="hub-logo"
                         width={150}
                         height={150}
                     />
                 }
+                {/* Hub Details */}
                 <div className="flex flex-col ml-3 space-y-4">
                     <span className="text-black font-bold text-xl mb-2 md:mb-4">{hub.displayName}</span>    
                     <p className="text-gray-500 mb-2 md:mb-4">{hub.cardDescription}</p>

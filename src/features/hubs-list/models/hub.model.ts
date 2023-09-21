@@ -8,9 +8,7 @@ interface CardImage {
     uuid: string;
   }
 
-  interface Logo extends CardImage {
-    
-  }
+  interface Logo extends CardImage {}
 
   interface HubUnassignedRecovery {
     assignedQuantity: number;
